@@ -12,15 +12,17 @@ import ClassManagePage from './pages/AdminPage/ClassPage'
 import SubjectPage from './pages/AdminPage/SubjectPage'
 import SpecialtyPage from './pages/AdminPage/SpecialtyPage'
 import { AuthContext } from './contexts/authContext/AuthContext'
-
 import DetailClass from './components/ClassList/DetailClass/DetailClass.jsx'
 import Schedule from './components/Schedule'
 import RegisterCourse from './components/RegisterCourse/RegisterCourse.jsx'
 import ProfilePage from './pages/ProfilePage'
+import NewsPage from './pages/NewsPage'
+import VideosPage from './pages/VideosPage'
+import DetailVideoPage from './pages/DetailVideoPage'
+import DetailNewPage from './pages/DetailNewPage'
 
 function App() {
   const { user } = useContext(AuthContext)
-
   return (
     <Routes>
       {/* public routes */}
@@ -46,6 +48,58 @@ function App() {
           user ? (
             <Layer>
               <ClassPage />
+            </Layer>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+
+      <Route
+        path="news"
+        element={
+          user ? (
+            <Layer>
+              <NewsPage />
+            </Layer>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+
+      <Route
+        path="videos"
+        element={
+          user ? (
+            <Layer>
+              <VideosPage />
+            </Layer>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+
+      <Route
+        path="news/:id"
+        element={
+          user ? (
+            <Layer>
+              <DetailNewPage />
+            </Layer>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+
+      <Route
+        path="videos/:id"
+        element={
+          user ? (
+            <Layer>
+              <DetailVideoPage />
             </Layer>
           ) : (
             <Navigate to="/login" replace />

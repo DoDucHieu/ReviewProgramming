@@ -78,12 +78,22 @@ const SIDEBAR_TOP = [
     path: '/',
   },
   {
-    text: 'Lớp học',
+    text: 'Bài đăng lập trình',
+    icon: <SchoolOutlinedIcon />,
+    path: '/news',
+  },
+  {
+    text: 'Video lập trình',
+    icon: <SchoolOutlinedIcon />,
+    path: '/videos',
+  },
+  {
+    text: 'Khóa học của tôi',
     icon: <SchoolOutlinedIcon />,
     path: '/classes',
   },
   {
-    text: 'Thời khóa biểu',
+    text: 'Lịch học',
     icon: <CalendarTodayIcon fontSize="small" />,
     path: '/schedule',
     except: 'r1',
