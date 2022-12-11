@@ -1,4 +1,10 @@
+import VideoLesson from 'src/components/VideoLessions/ClassVideoLesson'
+
 const DetailVideoPage = () => {
-  return <>detail video</>
+  return (
+    <div>
+      <VideoLesson />
+    </div>
+  )
 }
 export default DetailVideoPage
