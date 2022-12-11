@@ -12,3 +12,14 @@
 html {
   font-family: 'Roboto', sans-serif;
 }
+
+.thick-hover-animation {
+  background: linear-gradient(#000 0 0) 0% calc(-3px - 100%) / var(--d, 0%) 200% no-repeat;
+  transition: 0.3s, background-size 0.3s 0.3s;
+}
+.thick-hover-animation:hover {
+  --d: 100%;
+  background-position: 50% 0%;
+  color: #fff;
+  transition: 0.3s, background-position 0.3s 0.3s, color 0.3s 0.3s;
+}
