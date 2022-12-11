@@ -1,4 +1,4 @@
-import { Box, Modal } from '@mui/material'
+import { Box, Button, Modal } from '@mui/material'
 
 export type ModalCustomProps = {
   children: React.ReactNode
@@ -33,6 +33,14 @@ export default function ModalCustom({ children, open, width, onClose }: ModalCus
         }}
       >
         {children}
+        <div className="button" style={{ marginTop: 8 }}>
+          <Button variant="contained" onClick={onClose}>
+            Save
+          </Button>
+          <Button variant="outlined" style={{ marginLeft: 8 }} onClick={onClose}>
+            Cancel
+          </Button>
+        </div>
       </Box>
     </Modal>
   )
