@@ -11,13 +11,16 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import axios from 'axios'
 
-import Logo from 'src/images/logo-haui.png'
+// import Logo from 'src/images/logo-haui.png'
+import Logo from 'src/images/login.png'
+
 import { END_POINT } from 'src/const'
 import { login } from 'src/contexts/authContext/apiCall'
 import { AuthContext } from 'src/contexts/authContext/AuthContext'
+import ModalCreate from './AdminPage/StudentPage/components/ModalCreate'
 
 const RightSide = styled(Grid)({
-  backgroundImage: 'url(src/images/background.jpg)',
+  backgroundImage: 'url(src/images/docker.jpeg)',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
   backgroundSize: 'cover',
@@ -40,6 +43,7 @@ const schema: SchemaOf<FormInputs> = object().shape({
 })
 
 export default function LoginPage() {
+  const [openModalCreate, setOpenModalCreate] = useState(false)
   const { dispatch } = useContext(AuthContext)
 
   const [showPassword, setShowPassword] = useState(false)
@@ -59,6 +63,7 @@ export default function LoginPage() {
 
   return (
     <Grid container columnSpacing={2} sx={{ height: '100vh' }}>
+      <ModalCreate open={openModalCreate} handleClose={() => setOpenModalCreate(false)} />
       <RightSide item xs={8}></RightSide>
 
       <LeftSide item xs={4}>
@@ -68,7 +73,7 @@ export default function LoginPage() {
               <Avatar src={Logo} sx={{ width: 66, height: 66 }} variant="rounded" />
             </Box>
             <Typography align="center" variant="h6">
-              Trường Đại học Công nghiệp Hà Nội
+              Website tổng hợp kiến thức lập trình
             </Typography>
           </Box>
 
@@ -115,11 +120,18 @@ export default function LoginPage() {
             </Box>
 
             <Box mt={4}>
-              <Button variant="contained" color="primary" type="submit" fullWidth>
+              <Button variant="contained" color="primary" type="submit" fullWidth style={{ marginBottom: 16 }}>
                 Đăng nhập
               </Button>
             </Box>
           </form>
+          <span
+            onClick={() => {
+              setOpenModalCreate(true)
+            }}
+          >
+            Đăng ký
+          </span>
         </Box>
       </LeftSide>
     </Grid>

@@ -11,7 +11,7 @@ export default function ListOutstandingClass() {
   let dataOutstandingClass = data?.data
   return (
     <>
-      <h2 className="px-16 py-4 w-full"> Lớp học nổi bật</h2>
+      <h2 className="px-16 py-4 w-full"> Khóa học nổi bật</h2>
 
       <div className=" flex px-12 flex-wrap justify-center">
         {dataOutstandingClass &&

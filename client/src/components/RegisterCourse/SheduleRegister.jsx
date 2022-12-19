@@ -181,7 +181,7 @@ export default function ScheduleRegister(Props) {
       <br />
       <br />
 
-      <h3 className="flex justify-center">Danh sách học phần đã đăng ký</h3>
+      {/* <h3 className="flex justify-center">Danh sách học phần đã đăng ký</h3>
       <table
         style={{ borderSpacing: 0 }}
         className="border-black w-full text-center table-fixed text-xl font-Inter rounded-lg shadow-fakeBorderTable"
@@ -213,7 +213,7 @@ export default function ScheduleRegister(Props) {
               )
             })}
         </thead>
-      </table>
+      </table> */}
     </div>
   )
 }

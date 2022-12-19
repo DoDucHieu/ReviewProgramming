@@ -56,6 +56,19 @@ function App() {
       />
 
       <Route
+        path="my-classes"
+        element={
+          user ? (
+            <Layer>
+              <ClassPage />
+            </Layer>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+
+      <Route
         path="news"
         element={
           user ? (

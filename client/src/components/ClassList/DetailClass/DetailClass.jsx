@@ -119,17 +119,20 @@ export default function DetailClass() {
                   {`Giáo viên: ${classDetail?.data?.teacher?.user?.full_name}`}
                 </Typography>
                 <Typography variant="body1" color="white">
-                  Thời lương: 3 tháng
+                  Thời lượng: 100h
                 </Typography>
-                <Typography variant="body1" color="white">
+                {/* <Typography variant="body1" color="white">
                   {`Ngày bắt đầu: ${moment(classDetail?.data?.start_date).format('DD/MM/YYYY')}`}
                 </Typography>
                 <Typography variant="body1" color="white">
                   Ngày kết thúc: 30/06/2022
-                </Typography>
+                </Typography> */}
               </CardContent>
             </CardActionArea>
           </Card>
+          <Button variant="contained" style={{ marginTop: 16 }}>
+            Đăng ký
+          </Button>
         </div>
       </div>
 

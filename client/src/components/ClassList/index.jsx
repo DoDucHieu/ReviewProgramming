@@ -4,10 +4,12 @@ import React, { Component, useState } from 'react'
 import Carousel from 'react-elastic-carousel'
 import { AuthContext } from '../../contexts/authContext/AuthContext'
 import useSpecialtyQuery from '../../hooks/reactQueryHooks/useSpecialtyQuery'
+import { useLocation } from 'react-router-dom'
 
 export default function ClassList() {
   const { user } = React.useContext(AuthContext)
   const { data: specialties } = useSpecialtyQuery.getAll()
+  const location = useLocation()
 
   let allListClass = specialties?.data
 
@@ -33,11 +35,12 @@ export default function ClassList() {
   let listClassOfTeacher = handleListClassOfTeacher(allListClass)
 
   // console.log('list: ', listClassOfTeacher)
+  console.log('HEHE: ', location.pathname)
   return (
     <>
       {user && user?.role_id === 'r2' ? (
         <>
-          <h3>Danh sách lớp học đang dạy:</h3>
+          <h3>Danh sách khóa học của tôi: </h3>
           <div className="flex mt-4 flex-wrap">
             {listClassOfTeacher && listClassOfTeacher.length > 0 ? (
               listClassOfTeacher.map((item, index) => {
@@ -62,8 +65,14 @@ export default function ClassList() {
                       item1 &&
                       item1.classes &&
                       item1.classes.map((item2, index2) => {
-                        // console.log('data: ', item2)
-                        return <ClassItem data={item2} subjectName={item1?.subject_name} />
+                        console.log('data: ', item2?.subject_id)
+                        if (location.pathname !== '/my-classes') {
+                          return <ClassItem data={item2} subjectName={item1?.subject_name} />
+                        } else {
+                          if (item2?.subject_id % 2 === 0) {
+                            return <ClassItem data={item2} subjectName={item1?.subject_name} />
+                          }
+                        }
                       })
                     )
                   })}
