@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import ModalCustom from 'src/components/ModalCustom'
 import MarkdownEdit from './MarkdownEdit'
 
-const listNews = [
+export const listNews = [
   {
     img: img,
     title: 'Công nghệ đa phương tiện',
