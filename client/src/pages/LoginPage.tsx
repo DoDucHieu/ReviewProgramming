@@ -18,6 +18,7 @@ import { END_POINT } from 'src/const'
 import { login } from 'src/contexts/authContext/apiCall'
 import { AuthContext } from 'src/contexts/authContext/AuthContext'
 import ModalCreate from './AdminPage/StudentPage/components/ModalCreate'
+import { Link } from 'react-router-dom'
 
 const RightSide = styled(Grid)({
   backgroundImage: 'url(src/images/docker.jpeg)',
@@ -30,6 +31,12 @@ const LeftSide = styled(Grid)({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+})
+
+const AlignLeftLayout = styled(Grid)({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
 })
 
 type FormInputs = {
@@ -125,13 +132,9 @@ export default function LoginPage() {
               </Button>
             </Box>
           </form>
-          <span
-            onClick={() => {
-              setOpenModalCreate(true)
-            }}
-          >
-            Đăng ký
-          </span>
+          <AlignLeftLayout>
+            <Link to="/signup">Đăng ký</Link>
+          </AlignLeftLayout>
         </Box>
       </LeftSide>
     </Grid>
