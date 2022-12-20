@@ -91,3 +91,13 @@ export type ResponseType = {
   message?: string
   meta?: MetaType
 }
+
+export type NewsType = {
+  id?: number
+  title: string
+  desc: string
+  img_url: string
+  html: string
+  content: string
+  user_id: number
+}

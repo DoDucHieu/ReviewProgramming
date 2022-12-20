@@ -34,20 +34,6 @@ export default function ModalCustom({ children, open, width, onClose, onFinish }
         }}
       >
         {children}
-        <div className="button" style={{ marginTop: 8 }}>
-          <Button
-            variant="contained"
-            onClick={() => {
-              onFinish && onFinish()
-              onClose && onClose()
-            }}
-          >
-            Save
-          </Button>
-          <Button variant="outlined" style={{ marginLeft: 8 }} onClick={onClose}>
-            Cancel
-          </Button>
-        </div>
       </Box>
     </Modal>
   )

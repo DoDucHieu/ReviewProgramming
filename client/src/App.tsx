@@ -21,6 +21,8 @@ import VideosPage from './pages/VideosPage'
 import DetailVideoPage from './pages/DetailVideoPage'
 import DetailNewPage from './pages/DetailNewPage'
 import SignUpPage from './pages/SignUpPage'
+import AddNew from './pages/AddNew'
+import ApprovePage from './pages/ApprovePage'
 
 function App() {
   const { user } = useContext(AuthContext)
@@ -84,6 +86,19 @@ function App() {
       />
 
       <Route
+        path="add-new"
+        element={
+          user ? (
+            <Layer>
+              <AddNew />
+            </Layer>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+
+      <Route
         path="videos"
         element={
           user ? (
@@ -115,6 +130,19 @@ function App() {
           user ? (
             <Layer>
               <DetailVideoPage />
+            </Layer>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+
+      <Route
+        path="approve"
+        element={
+          user ? (
+            <Layer>
+              <ApprovePage />
             </Layer>
           ) : (
             <Navigate to="/login" replace />

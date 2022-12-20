@@ -97,6 +97,11 @@ const SIDEBAR_TOP = [
     icon: <SchoolOutlinedIcon />,
     path: '/my-classes',
   },
+  {
+    text: 'Phê duyệt',
+    icon: <SchoolOutlinedIcon />,
+    path: '/approve',
+  },
   // {
   //   text: 'Lịch học',
   //   icon: <CalendarTodayIcon fontSize="small" />,
