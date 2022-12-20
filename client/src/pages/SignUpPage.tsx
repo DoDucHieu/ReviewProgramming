@@ -18,6 +18,8 @@ import { END_POINT } from 'src/const'
 import { signUp } from 'src/contexts/authContext/apiCall'
 import { AuthContext } from 'src/contexts/authContext/AuthContext'
 
+import { useNavigate } from 'react-router-dom'
+
 const RightSide = styled(Grid)({
   backgroundImage: 'url(src/images/docker.jpeg)',
   backgroundRepeat: 'no-repeat',
@@ -32,9 +34,8 @@ const LeftSide = styled(Grid)({
 })
 
 type FormInputs = {
-  fullname: string
-  email?: string
-  dateOfBirth: string
+  full_name: string
+  date_of_birth: string
   gender: number
   address: string
   // avatar: string
@@ -47,13 +48,13 @@ const schema: SchemaOf<FormInputs> = object().shape({
   password: string().required('Yêu cầu nhập mật khẩu!'),
   address: string().optional(),
   // avatar: string().optional(),
-  dateOfBirth: string().optional(),
-  email: string().optional(),
-  fullname: string().required('Yêu cầu nhập họ tên'),
+  date_of_birth: string().optional(),
+  full_name: string().required('Yêu cầu nhập họ tên'),
   gender: string().optional(),
 })
 
 export default function SignUpPage() {
+  const navigate = useNavigate()
   const { dispatch } = useContext(AuthContext)
 
   const [showPassword, setShowPassword] = useState(false)
@@ -67,18 +68,22 @@ export default function SignUpPage() {
   } = useForm<FormInputs>({
     resolver: yupResolver(schema),
     defaultValues: {
-      dateOfBirth: '',
+      date_of_birth: '',
     },
   })
 
-  const handleSubmit: SubmitHandler<FormInputs> = async (data: FormInputs) => {
-    signUp(
-      /* data */ {
-        username: 'student',
-        password: 'student',
+  const handleSubmit: SubmitHandler<FormInputs> = async (data) => {
+    const { success: isSignUpSuccess } = await signUp(
+      {
+        ...data,
+        date_of_birth: new Date(data.date_of_birth).toISOString(),
       },
       dispatch
     )
+
+    if (isSignUpSuccess) {
+      navigate('/')
+    }
   }
 
   return (
@@ -104,21 +109,9 @@ export default function SignUpPage() {
                 fullWidth
                 autoFocus
                 size="small"
-                error={!!errors.fullname}
-                helperText={errors?.fullname?.message}
-                {...register('fullname')}
-              />
-            </Box>
-            <Box mt={2}>
-              <TextField
-                label="Email"
-                variant="standard"
-                fullWidth
-                autoFocus
-                size="small"
-                error={!!errors.email}
-                helperText={errors?.email?.message}
-                {...register('email')}
+                error={!!errors.full_name}
+                helperText={errors?.full_name?.message}
+                {...register('full_name')}
               />
             </Box>
             <Box mt={2}>
@@ -164,13 +157,13 @@ export default function SignUpPage() {
             </Box>
             <Box mt={2}>
               <Controller
-                name="dateOfBirth"
+                name="date_of_birth"
                 control={control}
                 render={({ field: { value, onChange } }) => (
                   <LocalizationProvider dateAdapter={AdapterMoment}>
                     <DatePicker
                       label="Ngày sinh"
-                      // inputFormat="dd/MM//yyyy"
+                      inputFormat="DD/MM/YYYY"
                       value={value}
                       onChange={onChange}
                       renderInput={(params) => (
@@ -179,8 +172,8 @@ export default function SignUpPage() {
                           size="small"
                           variant="standard"
                           {...params}
-                          error={!!errors.dateOfBirth}
-                          helperText={errors?.dateOfBirth?.message}
+                          error={!!errors.date_of_birth}
+                          helperText={errors?.date_of_birth?.message}
                         />
                       )}
                     />
