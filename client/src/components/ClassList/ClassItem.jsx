@@ -18,7 +18,7 @@ export default function ClassItem(props) {
   let { data, subjectName } = props
   // console.log('check from class item: ', data)
   return (
-    <Link to={`detail-class-${data?.class_id}`} className="no-underline w-1/4 flex justify-center mb-5">
+    <Link to={`/classes/detail-class-${data?.class_id}`} className="no-underline w-1/4 flex justify-center mb-5">
       <Card
         sx={{
           width: '95%',

@@ -20,6 +20,7 @@ import NewsPage from './pages/NewsPage'
 import VideosPage from './pages/VideosPage'
 import DetailVideoPage from './pages/DetailVideoPage'
 import DetailNewPage from './pages/DetailNewPage'
+import SignUpPage from './pages/SignUpPage'
 
 function App() {
   const { user } = useContext(AuthContext)
@@ -27,6 +28,7 @@ function App() {
     <Routes>
       {/* public routes */}
       <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/" replace />} />
+      <Route path="/signup" element={!user ? <SignUpPage /> : <Navigate to="/" replace />} />
 
       {/* private routes */}
       <Route
