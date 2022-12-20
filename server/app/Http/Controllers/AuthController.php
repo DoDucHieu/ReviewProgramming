@@ -9,10 +9,41 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:sanctum', ['except' => ['login']]);
-    // }
+    public function register(Request $request)
+    {
+        $fields = $request->validate([
+            'username' => 'required|string',
+            'password' => 'required',
+        ]);
+
+        // Check user
+        $user = User::where('username', $fields['username'])->first();
+        if ($user) {
+            return response([
+                'message' => 'Tài khoản đã tồn tại!'
+            ], 409);
+        }
+
+        $body = $request->all();
+        $body['role_id'] = 'r3';
+        $body['password'] = bcrypt($fields['password']);
+
+        if ($request->hasFile('avatar')) {
+            $ext = $request->file('avatar')->extension();
+            $generate_unique_file_name = md5(time()) . '.' . $ext;
+            $request->file('avatar')->move('images', $generate_unique_file_name, 'local');
+
+            $body['avatar'] = 'images/' . $generate_unique_file_name;
+        }
+
+        User::create($body);
+
+        $response = [
+            'message' => 'Đăng ký thành công!'
+        ];
+
+        return response($response, 200);
+    }
 
     public function login(Request $request)
     {
