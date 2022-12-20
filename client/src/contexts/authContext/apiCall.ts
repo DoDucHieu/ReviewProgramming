@@ -60,31 +60,47 @@ export const login = async (body, dispatch) => {
   }
 }
 
-export const signUp = async (body: any, dispatch: any) => {
+export const signUp = async (
+  body: {
+    full_name: string
+    date_of_birth: string
+    gender: number
+    address: string
+    username: string
+    password: string
+  },
+  dispatch: Function
+) => {
   dispatch(loginStart())
   try {
-    const { data } = await axios.post(`${END_POINT}/login`, body)
+    const { data } = await axios.post(`${END_POINT}/register`, body)
+    const { data: loginData } = await axios.post(`${END_POINT}/login`, {
+      username: body.username,
+      password: body.password,
+    })
 
     localStorage.setItem(
       USER,
       JSON.stringify({
-        access_token: data.access_token || null,
-        refresh_token: data.refresh_token || null,
-        ...data.data,
+        access_token: loginData.access_token || null,
+        refresh_token: loginData.refresh_token || null,
+        ...loginData.data,
       })
     )
 
-    if (data?.message) {
+    if (loginData?.message) {
       toast('Đăng ký thành công', { type: 'success' })
     }
 
-    dispatch(loginSuccess(data?.data))
-  } catch (error) {
+    dispatch(loginSuccess(loginData?.data))
+
+    return { success: true }
+  } catch (error: any) {
     dispatch(loginFailure())
 
-    if (error instanceof Error) {
-      toast('Đăng nhập thất bại!', { type: 'error' })
-    }
+    toast(error.response?.data?.message || 'Đăng ký thất bại', { type: 'error' })
+
+    return { success: false }
   }
 }
 
