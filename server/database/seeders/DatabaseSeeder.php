@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
                 ClassSeeder::class,
                 StudentClassSeeder::class,
                 LessonSeeder::class,
+                NewSeeder::class,
+                VideoSeeder::class,
                 // ScheduleSeeder::class,
             ]
         );
