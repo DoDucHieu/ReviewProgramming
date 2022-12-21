@@ -65,6 +65,14 @@ class NewController extends Controller
             $body['is_approve'] = false;
         }
 
+        if (request()->hasFile('img_url')) {
+            $ext = request()->file('img_url')->extension();
+            $generate_unique_file_name = md5(time()) . '.' . $ext;
+            request()->file('img_url')->move('images', $generate_unique_file_name, 'local');
+
+            $body['img_url'] = 'images/' . $generate_unique_file_name;
+        }
+
         News::create($body);
 
         return response()->json([
@@ -106,11 +114,20 @@ class NewController extends Controller
             }
         }
 
+        if (request()->hasFile('img_url')) {
+            $ext = request()->file('img_url')->extension();
+            $generate_unique_file_name = md5(time()) . '.' . $ext;
+            request()->file('img_url')->move('images', $generate_unique_file_name, 'local');
+
+            $body['img_url'] = 'images/' . $generate_unique_file_name;
+        }
+
         $isExist->update($body);
 
         return response()->json([
             'message' => 'Sửa tin tức thành công!',
             'data' => $isExist,
+            'body' => $body,
         ], 200);
     }
 
