@@ -65,6 +65,14 @@ class VideoController extends Controller
             $body['is_approve'] = false;
         }
 
+        if (request()->hasFile('url_video')) {
+            $ext = request()->file('url_video')->extension();
+            $generate_unique_file_name = md5(time()) . '.' . $ext;
+            request()->file('url_video')->move('videos', $generate_unique_file_name, 'local');
+
+            $body['url_video'] = 'videos/' . $generate_unique_file_name;
+        }
+
         Video::create($body);
 
         return response()->json([
@@ -104,6 +112,14 @@ class VideoController extends Controller
                     'message' => 'Video đã tồn tại!'
                 ], 409);
             }
+        }
+
+        if (request()->hasFile('url_video')) {
+            $ext = request()->file('url_video')->extension();
+            $generate_unique_file_name = md5(time()) . '.' . $ext;
+            request()->file('url_video')->move('videos', $generate_unique_file_name, 'local');
+
+            $body['url_video'] = 'videos/' . $generate_unique_file_name;
         }
 
         $isExist->update($body);

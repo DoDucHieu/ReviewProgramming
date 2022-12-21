@@ -38,9 +38,11 @@ Route::post('/login', [AuthController::class, 'login']);
 
   Route::patch('/news/active/{newId}', [NewController::class, 'active']);
   Route::get('/news/waiting', [NewController::class, 'waiting']);
-  Route::apiResource('/news', NewController::class);
+  Route::post('/news/{newId}', [NewController::class, 'update']);
+  Route::apiResource('/news', NewController::class)->except('update');
 
   Route::patch('/videos/active/{videoId}', [VideoController::class, 'active']);
   Route::get('/videos/waiting', [VideoController::class, 'waiting']);
-  Route::apiResource('/videos', VideoController::class);
+  Route::post('/videos/{videoId}', [VideoController::class, 'update']);
+  Route::apiResource('/videos', VideoController::class)->except('update');
 // });
