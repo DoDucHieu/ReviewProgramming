@@ -11,9 +11,9 @@ export default function ListOutstandingClass() {
   let dataOutstandingClass = data?.data
   return (
     <>
-      <h2 className="px-16 py-4 w-full"> Khóa học nổi bật</h2>
+      <h2 className="px-16 py-4 w-full">Các khoá học lập trình</h2>
 
-      <div className=" flex px-12 flex-wrap justify-center">
+      <div className=" flex px-12 flex-wrap justify-left" mt4>
         {dataOutstandingClass &&
           dataOutstandingClass.map((item, index) => {
             return <OutstandingClass data={item} id={item?.class_id} />
