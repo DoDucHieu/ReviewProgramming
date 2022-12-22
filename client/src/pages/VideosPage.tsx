@@ -6,7 +6,7 @@ import DialogTitle from '@mui/material/DialogTitle'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import FileUploadIcon from '@mui/icons-material/FileUpload'
-import { type ChangeEvent, useState } from 'react'
+import { type ChangeEvent, useState, useEffect, useContext } from 'react'
 
 import { Link } from 'react-router-dom'
 
@@ -16,6 +16,10 @@ import { SchemaOf, object, string, ref } from 'yup'
 
 import logoImg from 'src/images/video logo.jpg'
 import { toast } from 'react-toastify'
+import { IVideo } from 'src/interfaces/video'
+import videoAPIs from 'src/apis/videoAPI'
+import { AuthContext } from 'src/contexts/authContext/AuthContext'
+import ClonesLoader from 'src/components/Loader/ClonesLoader'
 
 const AlignLeftLayout = styled(Grid)({
   display: 'flex',
@@ -36,7 +40,11 @@ const schema: SchemaOf<IVideoUpload> = object().shape({
 
 export default function VideosPage() {
   const [isOpenningUploadModal, setIsOpenningUploadModal] = useState(false)
+  const [isFetchingVideo, setIsFetchingVideo] = useState(false)
   const [uploadedFileName, setUploadedFileName] = useState('')
+  const [videoList, setVideoList] = useState<IVideo[]>([])
+
+  const { user } = useContext(AuthContext)
 
   const hideModalHandler = () => {
     setIsOpenningUploadModal(false)
@@ -55,16 +63,44 @@ export default function VideosPage() {
     resolver: yupResolver(schema),
   })
 
+  const fetchVideos = async () => {
+    setIsFetchingVideo(true)
+    try {
+      const response = await videoAPIs.getAll()
+
+      setVideoList(response.data.data)
+    } catch (error) {
+      console.log('Error: ', error)
+      toast.error('Có lỗi xảy ra, không thể lấy danh sách video')
+    } finally {
+      setIsFetchingVideo(false)
+    }
+  }
+
   const handleSubmit: SubmitHandler<IVideoUpload> = async (data: IVideoUpload, event) => {
-    // login(data, dispatch)
-    console.log('Form data: ', data, control, control.getFieldState('videoUrl'))
-    console.log('Submit event: ', event?.target.videoUrl)
     const fileInpEl: HTMLInputElement = event?.target.videoUrl
     const video = fileInpEl.files?.[0]
-    console.log('Video: ', video)
 
-    toast.success('Tải video thành công, video đã được đưa vào danh sách kiểm duyệt')
-    hideModalHandler()
+    if (!video) {
+      return
+    }
+
+    const form = new FormData()
+    form.append('title', data.title)
+    form.append('desc', data.title)
+    form.append('url_video', video)
+    form.append('user_id', user.user_id)
+
+    try {
+      const response = await videoAPIs.create(form)
+      console.log('Create response', response)
+      toast.success('Tải video thành công, video đã được đưa vào danh sách kiểm duyệt')
+      hideModalHandler()
+      fetchVideos()
+    } catch (error) {
+      console.log('Error: ', error)
+      toast.error('Có lỗi xảy ra, không thể tải video lên hệ thống, vui lòng thử lại sau')
+    }
   }
 
   const uploadFileHandler = (fieldChangeHandler: Function) => {
@@ -74,6 +110,10 @@ export default function VideosPage() {
       fieldChangeHandler(event)
     }
   }
+
+  useEffect(() => {
+    fetchVideos()
+  }, [])
 
   return (
     <div>
@@ -143,17 +183,29 @@ export default function VideosPage() {
           </DialogActions>
         </form>
       </Dialog>
-
-      <ul className="flex px-12 flex-wrap justify-center list-none gap-5">
-        {new Array(10).fill('').map((_, i) => (
-          <li key={i}>
-            <Link to={`/videos/${i}`} className="block no-underline text-blue-500 thick-hover-animation">
-              <img src={logoImg} alt="" className="w-80 h-80 object-fill" />
-              <span className="block w-fit mx-auto">Tiếng anh công nghệ thông tin {i + 1}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      {isFetchingVideo ? (
+        <div className="flex h-96 w-full justify-center items-center">
+          <ClonesLoader className="w-20 h-20" />
+        </div>
+      ) : (
+        <ul className="flex px-12 flex-wrap justify-center list-none gap-5">
+          {videoList.length < 1 ? (
+            <p>Không có video nào</p>
+          ) : (
+            videoList.map((video, i) => (
+              <li key={i}>
+                <Link
+                  to={`/videos/${video.id}?video_url=${video.url_video}`}
+                  className="block no-underline text-blue-500 thick-hover-animation"
+                >
+                  <img src={logoImg} alt="" className="w-80 h-80 object-fill" />
+                  <span className="block w-fit mx-auto">{video.title}</span>
+                </Link>
+              </li>
+            ))
+          )}
+        </ul>
+      )}
     </div>
   )
 }

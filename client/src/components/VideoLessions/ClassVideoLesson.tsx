@@ -1,20 +1,25 @@
-import React, { ReactNode } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { ReactElement, ReactNode } from 'react'
+import { type NavigateFunction, useNavigate, useParams } from 'react-router-dom'
+import { END_POINT_IMG } from 'src/const'
 import video from 'src/video/video.mp4'
 
-export default function VideoLesson() {
-  const { videoID } = useParams()
-  console.log('Video id: ', videoID)
+interface IComponentProps {
+  videoURL: string
+}
+
+export default function VideoLesson({ videoURL }: IComponentProps) {
+  const navigator = useNavigate()
 
   return (
     <div>
-      <ManipulatedVideo source={video} />
+      <ManipulatedVideo source={videoURL} navigator={navigator} />
     </div>
   )
 }
 
 interface IVideoProps {
   source: string
+  navigator: NavigateFunction
 }
 interface IVideoState {}
 
@@ -24,6 +29,7 @@ class ManipulatedVideo extends React.Component<IVideoProps, IVideoState> {
   displayCanvasRef: React.RefObject<HTMLCanvasElement>
   displayCanvasContext?: CanvasRenderingContext2D | null
   videoContainerRef: React.RefObject<HTMLDivElement>
+  isFailedToLoadVideo = false
 
   constructor(prop: IVideoProps) {
     super(prop)
@@ -47,10 +53,19 @@ class ManipulatedVideo extends React.Component<IVideoProps, IVideoState> {
     this.bufferCanvasRef.current.width = this.videoContainerRef.current.getBoundingClientRect().width
   }
 
-  render(): ReactNode {
+  videoLoadFailedHandler = () => {
+    this.isFailedToLoadVideo = true
+  }
+
+  render(): any {
     return (
       <div ref={this.videoContainerRef} className="relative">
-        <video src={this.props.source} controls className="absolute top-0 left-0 w-full h-[80vh]"></video>
+        <video
+          src={`${END_POINT_IMG}/${this.props.source}`}
+          controls
+          onError={this.videoLoadFailedHandler}
+          className="absolute top-0 left-0 w-full h-[80vh]"
+        ></video>
         <canvas
           ref={this.bufferCanvasRef}
           width="500"
@@ -63,6 +78,15 @@ class ManipulatedVideo extends React.Component<IVideoProps, IVideoState> {
           height="500"
           className="hidden absolute top-0 left-0  w-full h-[80vh]"
         ></canvas>
+
+        <div
+          style={{
+            display: this.isFailedToLoadVideo ? 'flex' : 'none',
+          }}
+          className="absolute top-0 left-0 w-full h-[80vh] flex justify-center items-center bg-white"
+        >
+          <p>Video không khả dụng</p>
+        </div>
       </div>
     )
   }
