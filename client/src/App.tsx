@@ -23,6 +23,7 @@ import DetailNewPage from './pages/DetailNewPage'
 import SignUpPage from './pages/SignUpPage'
 import AddNew from './pages/AddNew'
 import ApprovePage from './pages/ApprovePage'
+import NotFoundPage from './pages/NotFoundPage'
 
 function App() {
   const { user } = useContext(AuthContext)
@@ -247,6 +248,8 @@ function App() {
         <Route path="subjects" element={<SubjectPage />} />
         <Route path="specialties" element={<SpecialtyPage />} />
       </Route>
+
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
 }
