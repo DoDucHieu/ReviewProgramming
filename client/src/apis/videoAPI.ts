@@ -20,6 +20,7 @@ interface IVideoResponse extends IVideo {
 const videoAPIs = {
   getAll: (params?: {}) => axiosClient.get<{ data: IVideoResponse[] }>('/videos', { params }),
   create: (form: FormData) => axiosClient.post<{ message: string }>('/videos', form),
+  getWaiting: (params?: {}) => axiosClient.get<{ data: IVideoResponse[] }>('/videos/waiting', { params }),
 }
 
 export default videoAPIs

@@ -11,14 +11,34 @@ import newsApi from 'src/apis/newsApi'
 import { NewsType } from 'src/types'
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material'
 import { flexbox } from '@mui/system'
+import { IVideo } from 'src/interfaces/video'
+import videoAPIs from 'src/apis/videoAPI'
+import { toast } from 'react-toastify'
 
 export default function HomePage() {
   const navigate = useNavigate()
   const [listNews, setListNews] = useState<NewsType[]>([])
+  const [videoList, setVideoList] = useState<IVideo[]>([])
+  const [isFetchingVideo, setIsFetchingVideo] = useState(false)
 
   useEffect(() => {
     handleGetAllNews()
+    fetchVideos()
   }, [])
+
+  const fetchVideos = async () => {
+    setIsFetchingVideo(true)
+    try {
+      const response = await videoAPIs.getAll()
+
+      setVideoList(response.data.data)
+    } catch (error) {
+      console.log('Error: ', error)
+      toast.error('Có lỗi xảy ra, không thể lấy danh sách video')
+    } finally {
+      setIsFetchingVideo(false)
+    }
+  }
 
   const handleGetAllNews = async () => {
     try {
@@ -52,7 +72,7 @@ export default function HomePage() {
           }}
           className=""
         >
-          {new Array(10).fill('').map((_, i) => (
+          {videoList?.map((video, i) => (
             <li
               style={{
                 backgroundColor: '#000',
@@ -62,9 +82,12 @@ export default function HomePage() {
               }}
               key={i}
             >
-              <Link to={`/videos/${i}`} className="block no-underline text-blue-500 thick-hover-animation">
+              <Link
+                to={`/videos/${video.id}?video_url=${video.url_video}`}
+                className="block no-underline text-blue-500 thick-hover-animation"
+              >
                 <img src={logoImg} alt="" className="w-80 h-80 object-fill" />
-                <span className="block w-fit mx-auto">Tiếng anh công nghệ thông tin {i + 1}</span>
+                <span className="block w-fit mx-auto">{video.title}</span>
               </Link>
             </li>
           ))}
