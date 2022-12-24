@@ -34,7 +34,7 @@ class NewController extends Controller
         $news->save();
 
         return response()->json([
-            'message' => 'Sét duyệt tin tức thành công!'
+            'message' => 'Xét duyệt tin tức thành công!'
         ], 200);
     }
 

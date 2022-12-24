@@ -56,30 +56,32 @@ const ApprovePage = () => {
       <div className="approve" style={{ display: 'flex' }}>
         <div className="approve_news" style={{ width: '50%' }}>
           <h3 style={{ marginBottom: 24 }}>Bài đăng</h3>
-          {listNews && listNews.length > 0
-            ? listNews.map((item, index) => {
-                return (
-                  <Card
-                    sx={{ width: 350, margin: 2 }}
-                    onClick={() => {
-                      navigate(`/news/${item?.id}`)
-                    }}
-                  >
-                    <CardActionArea>
-                      <CardMedia component="img" height="140" image={img} alt="green iguana" />
-                      <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                          {item?.title}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          {item?.desc}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                )
-              })
-            : 'Không có bài đăng nào cần phê duyệt'}
+          {listNews && listNews.length > 0 ? (
+            listNews.map((item, index) => {
+              return (
+                <Card
+                  sx={{ width: 350, margin: 2 }}
+                  onClick={() => {
+                    navigate(`/news/${item?.id}`)
+                  }}
+                >
+                  <CardActionArea>
+                    <CardMedia component="img" height="140" image={img} alt="green iguana" />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {item?.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {item?.desc}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              )
+            })
+          ) : (
+            <h3 style={{ color: 'red' }}>Không có bài đăng nào cần phê duyệt</h3>
+          )}
         </div>
         <div className="approve_videos" style={{ width: '50%' }}>
           <h3 style={{ marginBottom: 24 }}>Video</h3>
@@ -90,7 +92,7 @@ const ApprovePage = () => {
           ) : (
             <ul className="flex px-12 flex-wrap justify-center list-none gap-5">
               {videoList.length < 1 ? (
-                <p>Không có video nào</p>
+                <h3 style={{ color: 'red' }}>Không có video nào cần phê duyệt</h3>
               ) : (
                 videoList.map((video, i) => (
                   <li key={i}>

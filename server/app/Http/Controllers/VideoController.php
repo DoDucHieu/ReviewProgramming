@@ -34,7 +34,7 @@ class VideoController extends Controller
         $news->save();
 
         return response()->json([
-            'message' => 'Sét duyệt video thành công!'
+            'message' => 'Xét duyệt video thành công!'
         ], 200);
     }
 

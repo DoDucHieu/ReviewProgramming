@@ -14,7 +14,11 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined'
 import LogoDevOutlinedIcon from '@mui/icons-material/LogoDevOutlined'
+import TaskAltIcon from '@mui/icons-material/TaskAlt'
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined'
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined'
+import OndemandVideoOutlinedIcon from '@mui/icons-material/OndemandVideoOutlined'
+import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 
 // REACT-ROUTER-DOM
@@ -79,41 +83,44 @@ const SIDEBAR_TOP = [
   },
   {
     text: 'Bài đăng lập trình',
-    icon: <SchoolOutlinedIcon />,
+    icon: <ArticleOutlinedIcon />,
     path: '/news',
   },
   {
     text: 'Video lập trình',
-    icon: <SchoolOutlinedIcon />,
+    icon: <OndemandVideoOutlinedIcon />,
     path: '/videos',
   },
   {
+    text: 'Phê duyệt',
+    icon: <TaskAltIcon />,
+    path: '/approve',
+    except: ['r2', 'r3'],
+  },
+  {
     text: 'Danh sách khóa học',
-    icon: <SchoolOutlinedIcon />,
+    icon: <FormatListBulletedOutlinedIcon />,
     path: '/classes',
+    except: 'r1',
   },
   {
     text: 'Khóa học của tôi',
     icon: <SchoolOutlinedIcon />,
     path: '/my-classes',
+    except: 'r1',
   },
   {
-    text: 'Phê duyệt',
-    icon: <SchoolOutlinedIcon />,
-    path: '/approve',
+    text: 'Lịch học',
+    icon: <CalendarTodayIcon fontSize="small" />,
+    path: '/schedule',
+    except: 'r1',
   },
-  // {
-  //   text: 'Lịch học',
-  //   icon: <CalendarTodayIcon fontSize="small" />,
-  //   path: '/schedule',
-  //   except: 'r1',
-  // },
-  // {
-  //   text: 'Đăng ký học phần',
-  //   icon: <SchoolOutlinedIcon />,
-  //   path: '/register-course',
-  //   except: ['r1', 'r2'],
-  // },
+  {
+    text: 'Đăng ký học phần',
+    icon: <SchoolOutlinedIcon />,
+    path: '/register-course',
+    except: ['r1', 'r2'],
+  },
   // {
   //   text: 'Tài khoản',
   //   icon: <AdminPanelSettingsOutlinedIcon />,

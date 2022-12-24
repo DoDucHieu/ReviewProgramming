@@ -53,11 +53,54 @@ export default function HomePage() {
       <BannerSlider />
       <ListOutstandingClass />
       {/* <Schedule /> */}
+      <div
+        style={{
+          marginBottom: '12px',
+          padding: '0 48px',
+        }}
+        className="px-12"
+      >
+        <h2
+          style={{
+            marginBottom: '24px',
+            marginTop: '24px',
+            padding: '0 18px',
+          }}
+        >
+          Danh sách bài đăng lập trình
+        </h2>
+        <div className="listNews" style={{ display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
+          {listNews &&
+            listNews.map((item, index) => {
+              return (
+                <Card
+                  sx={{ width: 320, margin: 2 }}
+                  onClick={() => {
+                    navigate(`news/${item?.id}`)
+                  }}
+                >
+                  <CardActionArea>
+                    <CardMedia component="img" height="140" image={img} alt="green iguana" />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {item?.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {item?.desc}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              )
+            })}
+        </div>
+      </div>
       <div className="">
         <h2
           style={{
-            marginBottom: '12px',
-            padding: '0 48px',
+            marginBottom: '24px',
+            marginTop: '24px',
+            padding: '0 64px',
           }}
         >
           Video lập trình
@@ -92,40 +135,6 @@ export default function HomePage() {
             </li>
           ))}
         </ul>
-      </div>
-      <div
-        style={{
-          marginBottom: '12px',
-          padding: '0 48px',
-        }}
-        className="px-12"
-      >
-        <h2 style={{ margin: '16px 0', textAlign: 'left' }}>Danh sách các bài đăng về lập trình</h2>
-        <div className="listNews" style={{ display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
-          {listNews &&
-            listNews.map((item, index) => {
-              return (
-                <Card
-                  sx={{ width: 320, margin: 2 }}
-                  onClick={() => {
-                    navigate(`news/${item?.id}`)
-                  }}
-                >
-                  <CardActionArea>
-                    <CardMedia component="img" height="140" image={img} alt="green iguana" />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        {item?.title}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {item?.desc}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
-              )
-            })}
-        </div>
       </div>
     </>
   )

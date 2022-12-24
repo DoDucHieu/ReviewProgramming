@@ -36,31 +36,35 @@ const NewsPage = () => {
         </Button>
       </div>
       <h2 style={{ marginBottom: 16 }}>Danh sách các bài đăng về lập trình</h2>
-      <div className="listNews" style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
-        {listNews &&
-          listNews.map((item, index) => {
-            return (
-              <Card
-                sx={{ width: 350, margin: 2 }}
-                onClick={() => {
-                  navigate(`${item?.id}`)
-                }}
-              >
-                <CardActionArea>
-                  <CardMedia component="img" height="140" image={img} alt="green iguana" />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {item?.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {item?.desc}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            )
-          })}
-      </div>
+      {listNews && listNews.length > 0 ? (
+        <div className="listNews" style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+          {listNews &&
+            listNews.map((item, index) => {
+              return (
+                <Card
+                  sx={{ width: 350, margin: 2 }}
+                  onClick={() => {
+                    navigate(`${item?.id}`)
+                  }}
+                >
+                  <CardActionArea>
+                    <CardMedia component="img" height="140" image={img} alt="green iguana" />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {item?.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {item?.desc}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              )
+            })}
+        </div>
+      ) : (
+        <h3 className="text-red-500 text-center mt-8">Không có bài đăng nào</h3>
+      )}
     </>
   )
 }

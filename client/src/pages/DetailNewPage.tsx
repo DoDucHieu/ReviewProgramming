@@ -50,11 +50,11 @@ const DetailNewPage = () => {
         <div className="doctor_specialty" dangerouslySetInnerHTML={html ? { __html: html } : undefined}></div>
       </div>
       {user?.role_id && user?.role_id === 'r1' && isApprove !== 1 ? (
-        <div style={{ width: '100%' }}>
+        <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: 80 }}>
           <Button sx={{ width: 120 }} variant="contained" onClick={handleApproveNew}>
             Phê duyệt
           </Button>
-          <Button sx={{ width: 120, marginLeft: 2 }} onClick={handleDeleteNew}>
+          <Button variant="outlined" color="error" sx={{ width: 120, marginLeft: 2 }} onClick={handleDeleteNew}>
             Xóa bỏ
           </Button>
         </div>

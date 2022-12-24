@@ -122,6 +122,7 @@ export default function VideosPage() {
           Đăng video
         </Button>
       </AlignLeftLayout>
+      <h2 style={{ marginBottom: 16 }}>Danh sách các video về lập trình</h2>
       <Dialog open={isOpenningUploadModal} onClose={hideModalHandler} fullWidth maxWidth="md">
         <DialogTitle>Đăng tải video</DialogTitle>
         <form onSubmit={reactHookFormHandleSubmit(handleSubmit)} autoComplete="off">
@@ -175,9 +176,9 @@ export default function VideosPage() {
             }}
           >
             <AlignLeftLayout>
-              <Button onClick={hideModalHandler}>Cancel</Button>
+              <Button onClick={hideModalHandler}>Hủy</Button>
               <Button variant="contained" color="primary" type="submit">
-                Subscribe
+                Đăng
               </Button>
             </AlignLeftLayout>
           </DialogActions>
@@ -190,7 +191,7 @@ export default function VideosPage() {
       ) : (
         <ul className="flex px-12 flex-wrap justify-center list-none gap-5">
           {videoList.length < 1 ? (
-            <p>Không có video nào</p>
+            <h3 className="text-red-500 mt-8">Không có video nào</h3>
           ) : (
             videoList.map((video, i) => (
               <li key={i}>
