@@ -155,7 +155,14 @@ export default function VideosPage() {
                   <Button variant="contained" component="label">
                     <FileUploadIcon sx={{ mr: '1rem' }} />
                     Tải lên
-                    <input ref={ref} name={name} onChange={uploadFileHandler(onChange)} hidden multiple type="file" />
+                    <input
+                      ref={ref}
+                      name={name}
+                      onChange={uploadFileHandler(onChange)}
+                      accept="video/*"
+                      hidden
+                      type="file"
+                    />
                   </Button>
                 )}
               />
