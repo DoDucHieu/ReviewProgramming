@@ -203,7 +203,7 @@ export default function VideosPage() {
             videoList.map((video, i) => (
               <li key={i}>
                 <Link
-                  to={`/videos/${video.id}?video_url=${video.url_video}`}
+                  to={`/videos/${video.id}?video_url=${video.url_video}&approved=true`}
                   className="block no-underline text-blue-500 thick-hover-animation"
                 >
                   <img src={logoImg} alt="" className="w-80 h-80 object-fill" />

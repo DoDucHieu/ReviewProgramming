@@ -1,7 +1,9 @@
-import React, { ReactElement, ReactNode } from 'react'
-import { type NavigateFunction, useNavigate, useParams } from 'react-router-dom'
+import { Button } from '@mui/material'
+import React, { useContext, useEffect, useState } from 'react'
+import { type NavigateFunction, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import videoAPIs from 'src/apis/videoAPI'
 import { END_POINT_IMG } from 'src/const'
-import video from 'src/video/video.mp4'
+import { AuthContext } from 'src/contexts/authContext/AuthContext'
 
 interface IComponentProps {
   videoURL: string
@@ -9,17 +11,49 @@ interface IComponentProps {
 
 export default function VideoLesson({ videoURL }: IComponentProps) {
   const navigator = useNavigate()
+  const { user } = useContext(AuthContext)
+  const params = useParams()
+  const [isApproved, setIsApproved] = useState(false)
+  const [queries, setQueries] = useSearchParams()
+
+  const isAdmin = user?.role_id === 'r1'
+
+  const approveVideoHandler = async () => {
+    try {
+      const response = await videoAPIs.approveVideo(params.id || '')
+      console.log('Approved:', response)
+      setIsApproved(true)
+    } catch (error) {
+      console.log('Error: ', error)
+    }
+  }
+
+  useEffect(() => {
+    const isApproved = queries.get('approved')
+    if (isApproved) {
+      setIsApproved(true)
+    }
+  }, [])
 
   return (
     <div>
-      <ManipulatedVideo source={videoURL} navigator={navigator} />
+      <ManipulatedVideo
+        isApproved={isApproved}
+        isAdmin={isAdmin}
+        source={videoURL}
+        navigator={navigator}
+        onApproveVideo={approveVideoHandler}
+      />
     </div>
   )
 }
 
 interface IVideoProps {
   source: string
+  isAdmin: boolean
+  isApproved: boolean
   navigator: NavigateFunction
+  onApproveVideo: () => Promise<void>
 }
 interface IVideoState {}
 
@@ -64,7 +98,7 @@ class ManipulatedVideo extends React.Component<IVideoProps, IVideoState> {
           src={`${END_POINT_IMG}/${this.props.source}`}
           controls
           onError={this.videoLoadFailedHandler}
-          className="absolute top-0 left-0 w-full h-[80vh]"
+          className=" top-0 left-0 w-full h-[80vh]"
         ></video>
         <canvas
           ref={this.bufferCanvasRef}
@@ -87,6 +121,12 @@ class ManipulatedVideo extends React.Component<IVideoProps, IVideoState> {
         >
           <p>Video không khả dụng</p>
         </div>
+
+        {this.props.isAdmin && !this.props.isApproved && (
+          <div className="flex mt-5">
+            <Button onClick={this.props.onApproveVideo}>Phê Duyệt</Button>
+          </div>
+        )}
       </div>
     )
   }
