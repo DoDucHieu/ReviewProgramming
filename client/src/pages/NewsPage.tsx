@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import newsApi from 'src/apis/newsApi'
 import { NewsType } from 'src/types'
 
+const baseUrl = 'http://localhost:8000'
+
 const NewsPage = () => {
   const navigate = useNavigate()
   const [listNews, setListNews] = useState<NewsType[]>([])
@@ -48,7 +50,12 @@ const NewsPage = () => {
                   }}
                 >
                   <CardActionArea>
-                    <CardMedia component="img" height="140" image={img} alt="green iguana" />
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      image={item?.img_url ? `${baseUrl + '/' + item?.img_url}` : img}
+                      alt="green iguana"
+                    />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
                         {item?.title}

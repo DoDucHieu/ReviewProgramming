@@ -96,7 +96,7 @@ export type NewsType = {
   id?: number
   title: string
   desc: string
-  img_url: string
+  img_url: File
   html: string
   content: string
   user_id: number

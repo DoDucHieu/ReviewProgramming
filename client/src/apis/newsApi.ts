@@ -6,7 +6,12 @@ const URL = 'news'
 const newsApi = {
   getById: (id: number) => axiosClient.get(`${URL}/${id}`),
   getAll: (params: {}) => axiosClient.get(`/${URL}`, { params }),
-  create: (body: NewsType) => axiosClient.post(`/${URL}`, body),
+  create: (body: NewsType) =>
+    axiosClient.post(`/${URL}`, body, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }),
   update: (body: NewsType) => axiosClient.put(`/${URL}/${body.title}`, body),
   patch: (id: number) => axiosClient.patch(`/${URL}/active/${id}`),
   delete: (id: number) => axiosClient.delete(`/${URL}/${id}`),

@@ -15,7 +15,9 @@ const AddNew = () => {
   const [title, setTitle] = useState<string>('')
   const [desc, setDesc] = useState<string>('')
   const [contentMarkdown, setContentMarkdown] = useState('')
+  const [imgFile, setImgFile] = useState()
   const [contentHTML, setContentHTML] = useState('')
+  const [imgUrl, setImgUrl] = useState('')
   const handleEditorChange = ({ html, text }: any) => {
     setContentHTML(html)
     setContentMarkdown(text)
@@ -23,16 +25,24 @@ const AddNew = () => {
 
   const handleCreateNews = async () => {
     try {
-      const data: NewsType = {
-        title: title,
-        desc: desc,
-        img_url: 'loz',
-        html: contentHTML,
-        content: contentMarkdown,
-        user_id: user.user_id,
-      }
+      const data = new FormData()
+      // const data: NewsType = {
+      //   title: title,
+      //   desc: desc,
+      //   img_url: imgFile as any,
+      //   html: contentHTML,
+      //   content: contentMarkdown,
+      //   user_id: user.user_id,
+      // }
+      data.append('title', title)
+      data.append('desc', desc)
+      data.append('img_url', imgFile as any)
+      data.append('html', contentHTML)
+      data.append('content', contentMarkdown)
+      data.append('user_id', user.user_id)
       console.log('data: ', data)
-      const res = await newsApi.create(data)
+      const res = await newsApi.create(data as any)
+      console.log(res)
     } catch (error) {
       console.log('err:  ', error)
     }
@@ -41,7 +51,7 @@ const AddNew = () => {
     <>
       <div className="new-infor" style={{ display: 'flex' }}>
         <div className="new_infor-left">
-          <Box mt={2}>
+          <Box>
             <TextField
               required
               id="outlined-required"
@@ -67,12 +77,36 @@ const AddNew = () => {
         <div className="new_infor-right">
           <Button variant="contained" component="label" style={{ marginLeft: 16 }}>
             Upload
-            <input hidden accept="image/*" multiple type="file" />
+            <input
+              onChange={(e) => {
+                setImgUrl(URL.createObjectURL(e.target.files[0]))
+                setImgFile(e?.target?.files[0])
+              }}
+              hidden
+              accept="image/*"
+              type="file"
+            />
           </Button>
-          <IconButton color="primary" aria-label="upload picture" component="label">
-            <input hidden accept="image/*" type="file" />
-            <PhotoCamera />
-          </IconButton>
+        </div>
+        <div
+          style={{
+            width: '120px',
+            height: '120px',
+            marginLeft: '24px',
+          }}
+          className="image-placeholder"
+        >
+          {imgUrl && (
+            <img
+              src={imgUrl}
+              alt=""
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
+            />
+          )}
         </div>
       </div>
       <MdEditor
