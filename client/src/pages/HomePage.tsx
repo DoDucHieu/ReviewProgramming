@@ -16,6 +16,7 @@ import videoAPIs from 'src/apis/videoAPI'
 import { toast } from 'react-toastify'
 
 export default function HomePage() {
+  const baseUrl = 'http://localhost:8000'
   const navigate = useNavigate()
   const [listNews, setListNews] = useState<NewsType[]>([])
   const [videoList, setVideoList] = useState<IVideo[]>([])
@@ -80,7 +81,12 @@ export default function HomePage() {
                   }}
                 >
                   <CardActionArea>
-                    <CardMedia component="img" height="140" image={img} alt="green iguana" />
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      image={item?.img_url ? `${baseUrl + '/' + item?.img_url}` : img}
+                      alt="green iguana"
+                    />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
                         {item?.title}

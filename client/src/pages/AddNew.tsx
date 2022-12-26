@@ -7,11 +7,13 @@ import { Box, Button, Card, IconButton, TextField } from '@mui/material'
 import { PhotoCamera } from '@mui/icons-material'
 import newsApi from 'src/apis/newsApi'
 import { NewsType } from 'src/types'
+import { useNavigate } from 'react-router-dom'
 
 const mdParser = new MarkdownIt()
 
 const AddNew = () => {
   const user = JSON.parse(localStorage.getItem('USER') || {})
+  const navigate = useNavigate()
   const [title, setTitle] = useState<string>('')
   const [desc, setDesc] = useState<string>('')
   const [contentMarkdown, setContentMarkdown] = useState('')
@@ -43,6 +45,7 @@ const AddNew = () => {
       console.log('data: ', data)
       const res = await newsApi.create(data as any)
       console.log(res)
+      navigate('/news')
     } catch (error) {
       console.log('err:  ', error)
     }
