@@ -123,7 +123,13 @@ const AddNew = () => {
         <Button variant="contained" sx={{ width: 120 }} onClick={handleCreateNews}>
           Save
         </Button>
-        <Button variant="outlined" sx={{ width: 120, marginLeft: 2 }} onClick={() => {}}>
+        <Button
+          variant="outlined"
+          sx={{ width: 120, marginLeft: 2 }}
+          onClick={() => {
+            navigate(-1)
+          }}
+        >
           Cancel
         </Button>
       </div>

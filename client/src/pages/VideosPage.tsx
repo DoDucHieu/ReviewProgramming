@@ -206,7 +206,7 @@ export default function VideosPage() {
                   to={`/videos/${video.id}?video_url=${video.url_video}&approved=true`}
                   className="block no-underline text-blue-500 thick-hover-animation"
                 >
-                  <img src={logoImg} alt="" className="w-80 h-80 object-fill" />
+                  <img src={logoImg} alt="" className="w-80 h-80" style={{ objectFit: 'cover' }} />
                   <span className="block w-fit mx-auto">{video.title}</span>
                 </Link>
               </li>

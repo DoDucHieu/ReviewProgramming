@@ -109,18 +109,18 @@ const SIDEBAR_TOP = [
     path: '/my-classes',
     except: 'r1',
   },
-  {
-    text: 'Lịch học',
-    icon: <CalendarTodayIcon fontSize="small" />,
-    path: '/schedule',
-    except: 'r1',
-  },
-  {
-    text: 'Đăng ký học phần',
-    icon: <SchoolOutlinedIcon />,
-    path: '/register-course',
-    except: ['r1', 'r2'],
-  },
+  // {
+  //   text: 'Lịch học',
+  //   icon: <CalendarTodayIcon fontSize="small" />,
+  //   path: '/schedule',
+  //   except: 'r1',
+  // },
+  // {
+  //   text: 'Đăng ký học phần',
+  //   icon: <SchoolOutlinedIcon />,
+  //   path: '/register-course',
+  //   except: ['r1', 'r2'],
+  // },
   // {
   //   text: 'Tài khoản',
   //   icon: <AdminPanelSettingsOutlinedIcon />,

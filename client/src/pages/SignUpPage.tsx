@@ -21,7 +21,7 @@ import { AuthContext } from 'src/contexts/authContext/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
 const RightSide = styled(Grid)({
-  backgroundImage: 'url(src/images/docker.jpeg)',
+  backgroundImage: 'url(src/images/logo_login.png)',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
   backgroundSize: 'cover',

@@ -17,7 +17,7 @@ export default function ListLesson(props) {
             })}
         </div>
       ) : (
-        <h4 className="text-red-500">Bạn phải đăng kí học phần mới có thể xem nội dung môn học này!</h4>
+        <h4 className="text-red-500">Bạn phải đăng kí mới có thể xem nội dung môn học này!</h4>
       )}
     </>
   )

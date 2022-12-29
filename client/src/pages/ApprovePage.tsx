@@ -8,13 +8,13 @@ import logoImg from 'src/images/video logo.jpg'
 import ClonesLoader from 'src/components/Loader/ClonesLoader'
 import { IVideo } from 'src/interfaces/video'
 import { NewsType } from 'src/types'
-import img from '../images/background.jpg'
 
 const ApprovePage = () => {
   const navigate = useNavigate()
   const [listNews, setListNews] = useState<NewsType[]>([])
   const [isFetchingVideo, setIsFetchingVideo] = useState(false)
   const [videoList, setVideoList] = useState<IVideo[]>([])
+  const baseUrl = 'http://localhost:8000'
 
   useEffect(() => {
     handleGetAllWaitingNews()
@@ -66,7 +66,11 @@ const ApprovePage = () => {
                   }}
                 >
                   <CardActionArea>
-                    <CardMedia component="img" height="140" image={img} alt="green iguana" />
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      image={item?.img_url ? `${baseUrl + '/' + item?.img_url}` : img}
+                    />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
                         {item?.title}

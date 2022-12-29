@@ -109,7 +109,7 @@ export default function HomePage() {
             padding: '0 64px',
           }}
         >
-          Video lập trình
+          Danh sách video lập trình
         </h2>
         <ul
           style={{
@@ -128,6 +128,7 @@ export default function HomePage() {
                 border: '1px solid #ccc',
                 borderRadius: '4px',
                 overflow: 'hidden',
+                marginLeft: 8,
               }}
               key={i}
             >
@@ -135,7 +136,7 @@ export default function HomePage() {
                 to={`/videos/${video.id}?video_url=${video.url_video}`}
                 className="block no-underline text-blue-500 thick-hover-animation"
               >
-                <img src={logoImg} alt="" className="w-80 h-80 object-fill" />
+                <img src={logoImg} alt="" style={{ objectFit: 'cover', width: 320, height: 320 }} />
                 <span className="block w-fit mx-auto">{video.title}</span>
               </Link>
             </li>

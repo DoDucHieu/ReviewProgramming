@@ -134,9 +134,6 @@ export default function DetailClass() {
                   {classDetail?.data?.subject?.subject_name}
                 </Typography>
                 <Typography variant="body1" color="white">
-                  {`Giáo viên: ${classDetail?.data?.teacher?.user?.full_name}`}
-                </Typography>
-                <Typography variant="body1" color="white">
                   Thời lượng: 100h
                 </Typography>
                 {/* <Typography variant="body1" color="white">
