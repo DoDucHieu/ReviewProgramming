@@ -52,7 +52,7 @@ function App() {
         element={
           user ? (
             <Layer>
-              <ClassPage />
+              <ClassPage allClass={true} />
             </Layer>
           ) : (
             <Navigate to="/login" replace />

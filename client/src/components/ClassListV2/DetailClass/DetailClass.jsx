@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ListLesson from './ListLesson'
 
@@ -29,12 +29,10 @@ import ModalCreate from './ModalCreate'
 import useClassQuery from '../../../hooks/reactQueryHooks/useClassQuery'
 import useStudentQuery from '../../../hooks/reactQueryHooks/useStudentQuery'
 import useTeacherQuery from '../../../hooks/reactQueryHooks/useTeacherQuery'
-import studentClassApi from '../../../apis/studentClassApi'
-import { fetchUser } from '../../../contexts/authContext/apiCall'
 
 export default function DetailClass() {
   let { id } = useParams()
-  const { user, dispatch } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
   // ======================STATE=======================
   // modals
@@ -82,22 +80,6 @@ export default function DetailClass() {
     isInThisClass = checkTeacherInClass(teacher?.data?.teacher?.classes, id)
   }
   console.log('condition: ', isInThisClass)
-
-  const handleSubmit = async () => {
-    try {
-      await studentClassApi.create({ user_id: user?.user_id, class_id: classDetail?.data?.class_id })
-      fetchUser(user?.user_id, dispatch)
-    } catch (error) {
-      console.error(error.message)
-    }
-  }
-
-  const isRegister = useMemo(() => {
-    const classList = user?.student?.student_class
-    const currentClassId = classDetail?.data?.class_id
-
-    return !!classList?.find((item) => item.class_id === currentClassId)
-  }, [classDetail?.data?.class_id, user?.student?.student_class])
 
   return (
     <>
@@ -148,8 +130,8 @@ export default function DetailClass() {
               </CardContent>
             </CardActionArea>
           </Card>
-          <Button disabled={isRegister} onClick={handleSubmit} variant="contained" style={{ marginTop: 16 }}>
-            {isRegister ? 'Đã đăng ký' : 'Đăng ký'}
+          <Button variant="contained" style={{ marginTop: 16 }}>
+            Đăng ký
           </Button>
         </div>
       </div>

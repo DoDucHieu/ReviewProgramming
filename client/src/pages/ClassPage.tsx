@@ -1,9 +1,9 @@
-import ClassList from '../components/ClassList'
+import ClassList from '../components/ClassListV2'
 
-export default function ClassPage() {
+export default function ClassPage({ allClass = false }: { allClass?: boolean }) {
   return (
     <>
-      <ClassList />
+      <ClassList allClass={allClass} />
     </>
   )
 }
